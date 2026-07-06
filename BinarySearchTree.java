@@ -3,11 +3,12 @@
  * Description:
  * This program implements a Binary Search Tree (BST) using generics. It supports
  * inserting elements into the tree, performing an inorder traversal to display
- * elements in sorted order, and calculating the total number of nodes present
- * in the tree.
+ * elements in sorted order, calculating the total number of nodes, and searching
+ * for a specific element using recursive traversal while maintaining the BST property.
  */
 package datastructures;
 public class BinarySearchTree<T extends Comparable<T>> {
+
     class Node {
 
         T data;
@@ -58,6 +59,28 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return 1 + size(root.left) + size(root.right);
     }
 
+    public boolean search(Node root, T ele) {
+
+        boolean flag = false;
+
+        if (root == null)
+            return false;
+
+        else if (ele.compareTo(root.data) == 0) {
+            return true;
+        }
+
+        else if (ele.compareTo(root.data) < 0) {
+            flag = search(root.left, ele);
+        }
+
+        else {
+            flag = search(root.right, ele);
+        }
+
+        return flag;
+    }
+
     public static void main(String[] args) {
 
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
@@ -80,5 +103,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         bst.inorder(bst.root);
         System.out.println("\n");
         System.out.println("Size of Binary Tree : " + bst.size(bst.root));
+        System.out.println();
+        System.out.println("Searching for 63: " + bst.search(bst.root, 63));
     }
 }
